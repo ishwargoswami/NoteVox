@@ -43,17 +43,6 @@ const App = () => {
         document.body.classList.toggle('dark-theme');
     };
 
-    const saveNote = () => {
-        try {
-            const doc = nlp(transcript);
-            const summary = doc.summary().text();
-            setNotes([...notes, summary]);
-            console.log("Summary:", summary); // Debugging line
-            resetTranscript();
-        } catch (error) {
-            console.error("Error summarizing the transcript:", error);
-        }
-    };
 
     const executeCommand = () => {
         const words = transcript.trim().split(' ');
@@ -116,7 +105,6 @@ const App = () => {
                 <button onClick={startListening}>Start Listening</button>
                 <button onClick={pauseListening}>Pause Listening</button>
                 <button onClick={resetTranscript}>Clear</button>
-                <button onClick={saveNote}>Save Note</button>
             </div>
 
             <div className="counter-container">
@@ -126,14 +114,6 @@ const App = () => {
 
             {listening && <div className="listening-indicator">Listening...</div>}
 
-            <div className="notes-section">
-                <h3>Saved Notes</h3>
-                {notes.length > 0 ? (
-                    notes.map((note, index) => <p key={index}>{note}</p>)
-                ) : (
-                    <p>No notes saved yet.</p>
-                )}
-            </div>
         </div>
     );
 };
